@@ -1,4 +1,4 @@
-# gtaylor's Helm Chart Repo
+# gh-pages branch
 
-This repo contains odds and ends charts that may or may not work.
+This branch is used for hosting the chart index.
 
