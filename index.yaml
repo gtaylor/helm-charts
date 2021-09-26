@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  docker-registry-browser:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-09-26T06:52:17.493325201Z"
+    description: A Helm chart for Kubernetes
+    digest: da480f29d2bf9264b65f5bdedfe9403492cda25cdd6a63a814180f4e761c4d57
+    name: docker-registry-browser
+    type: application
+    urls:
+    - https://github.com/gtaylor/helm-charts/releases/download/docker-registry-browser-0.2.0/docker-registry-browser-0.2.0.tgz
+    version: 0.2.0
+generated: "2021-09-26T06:52:17.36455369Z"
