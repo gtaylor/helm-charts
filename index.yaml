@@ -2,6 +2,16 @@ apiVersion: v1
 entries:
   docker-registry-browser:
   - apiVersion: v2
+    appVersion: 1.3.5
+    created: "2021-09-27T05:49:02.118886305Z"
+    description: Web Interface for the Docker Registry HTTP API V2 written in Ruby on Rails.
+    digest: d2a38f3df738afa7c1f49ac5994334e6a5dd3563d76d65fe7c505fb08be97636
+    name: docker-registry-browser
+    type: application
+    urls:
+    - https://github.com/gtaylor/helm-charts/releases/download/docker-registry-browser-0.4.0/docker-registry-browser-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     appVersion: 1.16.0
     created: "2021-09-26T06:52:17.493325201Z"
     description: A Helm chart for Kubernetes
