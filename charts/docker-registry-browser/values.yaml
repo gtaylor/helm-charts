@@ -4,8 +4,12 @@
 
 replicaCount: 1
 
+# Pass in environment variables to configure the registry browser.
+# ref: https://github.com/klausmeyer/docker-registry-browser/blob/master/docs/README.md
+env: {}
+
 image:
-  repository: nginx
+  repository: klausmeyer/docker-registry-browser
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
@@ -35,6 +39,9 @@ securityContext: {}
   # readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 1000
+
+volumes: []
+volumeMounts: []
 
 service:
   type: ClusterIP
@@ -67,13 +74,6 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-autoscaling:
-  enabled: false
-  minReplicas: 1
-  maxReplicas: 100
-  targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
 
 nodeSelector: {}
 
