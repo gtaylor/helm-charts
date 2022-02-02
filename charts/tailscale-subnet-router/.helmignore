@@ -16,6 +16,8 @@
 *.tmp
 *.orig
 *~
+# helm-docs files
+README.md.gotmpl
 # Various IDEs
 .project
 .idea/
