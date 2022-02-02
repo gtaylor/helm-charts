@@ -1,0 +1,66 @@
+{{ template "chart.header" . }}
+{{ template "chart.deprecationWarning" . }}
+
+{{ template "chart.badgesSection" . }}
+
+{{ template "chart.description" . }}
+
+{{ template "chart.homepageLine" . }}
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+## Prerequesites
+
+Before installing this Chart, you'll need the following:
+
+1. A Tailscale account.
+2. A reusable [auth key](https://tailscale.com/kb/1085/auth-keys/).
+3. A Kubernetes Secret in the Namespace that you'll installing this Chart in.
+4. Your own Docker image built from the Dockerfile found [here](https://github.com/tailscale/tailscale/tree/main/docs/k8s).
+5. It's probably worth briefly reading the upstream [Subnet + Kubernetes](https://github.com/tailscale/tailscale/tree/main/docs/k8s#subnet-router) instructions from which this Chart was based on.
+
+## A note on secrets
+
+This Chart does not expose a value to pass your Tailscale auth keys in, as the author populates these via other means (the Vault CSI driver).
+
+Whether you manually create it or sync it in via other means (Vault, Sealed Secrets, etc), a Secret will need to exist in your target namespace before installing the Chart.
+
+Unless overridden, the Chart will assume that you have a Secret named `tailscale-subnet-router-secrets` whose `AUTH_KEY` key contains your router's Tailscale auth key.
+
+## A note on Docker images
+
+Due to the sensitivity of this component, no Docker image is referenced or provided. We recommend building the upstream Dockerfile found [here](https://github.com/tailscale/tailscale/tree/main/docs/k8s) and pushing it somewhere. **Make sure to set the `image.repository` value accordingly.**
+
+## Installing the Chart
+
+To install the chart with the release name `my-release`:
+
+```console
+$ helm repo add gtaylor https://gtaylor.github.io/helm-charts
+$ helm install my-release gtaylor/{{ template "chart.name" . }} \
+    --set image.repository your-repo-here.com/tailscale/tailscale-subnet-proxy \
+```
+
+If all goes well, you should see a new Subnet router in your Tailscale admin page.
+
+**Note: You'll need to enable the routes and disable key expiry on the newly created host entry in the Tailscale admin page.**
+
+## Uninstalling the Chart
+
+To uninstall/delete the `my-release` deployment:
+
+```console
+$ helm delete my-release
+```
+
+The command removes all the Kubernetes components associated with the chart and deletes the release.
+
+**Tip: Make sure to revoke your auth key in Tailscale afterwards.**
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

@@ -32,7 +32,7 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}
+          image: {{ required "A valid .Values.image.repository entry required!" .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: KUBE_SECRET
@@ -45,7 +45,7 @@ spec:
                   name: {{ .Values.tailscale.auth.secretName }}
                   key: {{ .Values.tailscale.auth.secretKey }}
             - name: ROUTES
-              value: "{{ .Values.tailscale.routes.serviceCIDR}},{{ .Values.tailscale.routes.podCIDR}}"
+              value: {{ join "," .Values.tailscale.routes|quote }}
           {{- with .Values.resources }}
           resources: {{ toYaml . | nindent 16 }}
           {{- end }}
