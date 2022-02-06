@@ -2,7 +2,7 @@ apiVersion: v2
 name: tailscale-subnet-router
 description: Deploy a Tailscale subnet router on Kubernetes
 type: application
-version: 1.0.1
+version: 1.0.2
 appVersion: "v1.20"
 home: https://github.com/gtaylor/helm-charts/charts/tailscale-subnet-router
 sources:
