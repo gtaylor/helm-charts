@@ -3,6 +3,17 @@ entries:
   docker-registry-browser:
   - apiVersion: v2
     appVersion: 1.4.0
+    created: "2022-02-06T05:06:22.165234231Z"
+    description: Web Interface for the Docker Registry HTTP API V2 written in Ruby
+      on Rails.
+    digest: 07a9da570b96b8f9213fc2d64a9a7d1899bc7cba62de2239181c4b220358dd2e
+    name: docker-registry-browser
+    type: application
+    urls:
+    - https://github.com/gtaylor/helm-charts/releases/download/docker-registry-browser-0.4.4/docker-registry-browser-0.4.4.tgz
+    version: 0.4.4
+  - apiVersion: v2
+    appVersion: 1.4.0
     created: "2022-02-02T06:15:52.165214112Z"
     description: Web Interface for the Docker Registry HTTP API V2 written in Ruby
       on Rails.
@@ -58,6 +69,23 @@ entries:
   tailscale-subnet-router:
   - apiVersion: v2
     appVersion: v1.20
+    created: "2022-02-06T05:06:22.352040945Z"
+    description: Deploy a Tailscale subnet router on Kubernetes
+    digest: 3285d8b14aba94cb39f91215d024e32c8dfd023affc7fb5972ce98b2ebc637e2
+    home: https://github.com/gtaylor/helm-charts/charts/tailscale-subnet-router
+    maintainers:
+    - email: greg@gctaylor.com
+      name: Greg Taylor
+      url: https://gc-taylor.com
+    name: tailscale-subnet-router
+    sources:
+    - https://github.com/gtaylor/helm-charts/charts/tailscale-subnet-router
+    type: application
+    urls:
+    - https://github.com/gtaylor/helm-charts/releases/download/tailscale-subnet-router-1.0.2/tailscale-subnet-router-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: v1.20
     created: "2022-02-02T06:19:15.726412259Z"
     description: Deploy a Tailscale subnet router on Kubernetes
     digest: 6e8405d2e7f9a2e0d5fceadba6a66e7480d92da4c483b69a446d2ef4182834fe
@@ -103,4 +131,4 @@ entries:
     urls:
     - https://github.com/gtaylor/helm-charts/releases/download/tailscale-subnet-router-0.1.0/tailscale-subnet-router-0.1.0.tgz
     version: 0.1.0
-generated: "2022-02-02T06:19:15.726433259Z"
+generated: "2022-02-06T05:06:22.352095544Z"
