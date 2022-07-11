@@ -18,8 +18,7 @@ Before installing this Chart, you'll need the following:
 1. A Tailscale account.
 2. A reusable [auth key](https://tailscale.com/kb/1085/auth-keys/).
 3. A Kubernetes Secret in the Namespace that you'll installing this Chart in.
-4. Your own Docker image built from the Dockerfile found [here](https://github.com/tailscale/tailscale/tree/main/docs/k8s).
-5. It's probably worth briefly reading the upstream [Subnet + Kubernetes](https://github.com/tailscale/tailscale/tree/main/docs/k8s#subnet-router) instructions from which this Chart was based on.
+4. It's probably worth briefly reading the upstream [Subnet + Kubernetes](https://github.com/tailscale/tailscale/tree/main/docs/k8s#subnet-router) instructions from which this Chart was based on.
 
 ## A note on secrets
 
@@ -28,10 +27,6 @@ This Chart does not expose a value to pass your Tailscale auth keys in, as the a
 Whether you manually create it or sync it in via other means (Vault, Sealed Secrets, etc), a Secret will need to exist in your target namespace before installing the Chart.
 
 Unless overridden, the Chart will assume that you have a Secret named `tailscale-subnet-router-secrets` whose `AUTH_KEY` key contains your router's Tailscale auth key.
-
-## A note on Docker images
-
-Due to the sensitivity of this component, no Docker image is referenced or provided. We recommend building the upstream Dockerfile found [here](https://github.com/tailscale/tailscale/tree/main/docs/k8s) and pushing it somewhere. **Make sure to set the `image.repository` value accordingly.**
 
 ## Installing the Chart
 

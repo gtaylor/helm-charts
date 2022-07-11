@@ -32,19 +32,19 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ required "A valid .Values.image.repository entry required!" .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: KUBE_SECRET
+            - name: TS_KUBE_SECRET
               value: {{ .Values.tailscale.state.secretName }}
-            - name: USERSPACE
+            - name: TS_USERSPACE
               value: "true"
-            - name: AUTH_KEY
+            - name: TS_AUTH_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.tailscale.auth.secretName }}
                   key: {{ .Values.tailscale.auth.secretKey }}
-            - name: ROUTES
+            - name: TS_ROUTES
               value: {{ join "," .Values.tailscale.routes|quote }}
           {{- with .Values.resources }}
           resources: {{ toYaml . | nindent 16 }}

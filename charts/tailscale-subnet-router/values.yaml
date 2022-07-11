@@ -3,9 +3,10 @@ replicas: 1
 
 image:
   # -- **Build your own image and override this!**
-  repository:
-  pullPolicy: Always
-  tag: latest
+  repository: ghcr.io/tailscale/tailscale
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
 
 # -- List the secrets containing the Docker creds for images in this Chart
 imagePullSecrets: []
