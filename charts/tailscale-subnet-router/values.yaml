@@ -31,6 +31,13 @@ tailscale:
     # Default pod CIDR
     - "10.244.0.0/16"
 
+  # -- Additional environment values
+  extraEnv: []
+  #   - name: TS_EXTRA_ARGS
+  #     value: "--advertise-exit-node"
+  #   - name: ARG_WITH_TPL
+  #     value: "{{ .Chart.Name }}"
+
 # -- The service account to create or attach
 serviceAccount:
   # Specifies whether a service account should be created
