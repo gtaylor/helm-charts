@@ -82,6 +82,7 @@ The command removes all the Kubernetes components associated with the chart and 
 | tailscale.auth.secretName | string | `"tailscale-subnet-router-secrets"` | The name of the secret containing a Tailscale auth key |
 | tailscale.routes | list | `["10.96.0.0/12","10.244.0.0/16"]` | Routes for the subnet router to publish |
 | tailscale.state.secretName | string | `"tailscale-subnet-router-state"` | The secret that the subnet router will store its state in |
+| tailscale.extraEnv | list(object) | `[]` | Additional environment variables to include in the StatefulSet |
 | tolerations | list | `[]` | [Tolerations](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/) for pod assignment |
 | volumeMounts | list | `[]` | Additional volumes to add to mount to the primary container |
 | volumes | list | `[]` | Additional volumes to add to the pod |

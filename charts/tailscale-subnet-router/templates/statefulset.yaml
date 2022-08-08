@@ -29,7 +29,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "tailscale-subnet-router.fullname" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -46,6 +46,9 @@ spec:
                   key: {{ .Values.tailscale.auth.secretKey }}
             - name: TS_ROUTES
               value: {{ join "," .Values.tailscale.routes|quote }}
+          {{- if .Values.tailscale.extraEnv }}
+          {{- tpl (.Values.tailscale.extraEnv | toYaml) . | nindent 12 }}
+          {{- end }}
           {{- with .Values.resources }}
           resources: {{ toYaml . | nindent 16 }}
           {{- end }}
