@@ -12,4 +12,4 @@ rules:
   - apiGroups: [""]
     resourceNames: [ {{ .Values.tailscale.state.secretName }} ]
     resources: ["secrets"]
-    verbs: ["get", "update"]
+    verbs: ["get", "update", "patch"]
