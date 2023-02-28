@@ -37,8 +37,6 @@ spec:
           env:
             - name: TS_KUBE_SECRET
               value: {{ .Values.tailscale.state.secretName }}
-            - name: TS_USERSPACE
-              value: "true"
             - name: TS_AUTH_KEY
               valueFrom:
                 secretKeyRef:
