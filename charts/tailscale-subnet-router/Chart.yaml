@@ -3,11 +3,11 @@ name: tailscale-subnet-router
 description: Deploy a Tailscale subnet router on Kubernetes
 type: application
 version: 1.2.1
-appVersion: "v1.34.1"
-home: https://github.com/gtaylor/helm-charts/charts/tailscale-subnet-router
+appVersion: "v1.36.2"
+home: https://github.com/coverflex-tech/tailscale-subnet-router
 sources:
-  - https://github.com/gtaylor/helm-charts/charts/tailscale-subnet-router
+  - https://github.com/coverflex-tech/tailscale-subnet-router
 maintainers:
-  - email: greg@gctaylor.com
-    name: Greg Taylor
-    url: https://gc-taylor.com
+  - email: devops@coverflex.com
+    name: Coverflex devops team
+    url: https://coverflex.slack.com/archives/C04H1FU9XA4

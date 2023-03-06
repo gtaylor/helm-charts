@@ -1,0 +1,62 @@
+name: Tailscale subnet router
+
+on: push
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+jobs:
+  acls:
+    runs-on: ubuntu-latest
+    # permissions:
+    #   id-token: write
+    #   contents: read
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: azure/setup-helm@v3
+
+      - name: Run Helm lint against chart
+        run: helm lint charts/tailscale-subnet-router
+
+
+
+      # - name: Configure AWS Credentials
+      #   uses: aws-actions/configure-aws-credentials@v1-node16
+      #   with:
+      #     role-to-assume: arn:aws:iam::883152518512:role/GithubActionsRole
+      #     aws-region: eu-west-3
+
+      # - name: Get secrets by name and by ARN
+      #   uses: aws-actions/aws-secretsmanager-get-secrets@v1
+      #   with:
+      #     secret-ids: |
+      #       arn:aws:secretsmanager:eu-west-3:883152518512:secret:coverflex_github_actions-jQGy82
+      #     parse-json-secrets: true
+
+      # - name: Get tailscale API key
+      #   run: |
+      #     TAILSCALE_API_KEY=$(curl -d "client_id=${COVERFLEX_GITHUB_ACTIONS_OAUTH_CLIENT_ID}" \
+      #       -d "client_secret=${COVERFLEX_GITHUB_ACTIONS_OAUTH_CLIENT_SECRET}" \
+      #       "https://api.tailscale.com/api/v2/oauth/token" | jq -j .access_token)
+      #     echo "TAILSCALE_API_KEY=${TAILSCALE_API_KEY}" >> $GITHUB_ENV
+
+      # - name: Deploy ACL
+      #   if: github.event_name == 'push'
+      #   id: deploy-acl
+      #   uses: tailscale/gitops-acl-action@v1
+      #   with:
+      #     api-key: ${{ env.TAILSCALE_API_KEY }}
+      #     tailnet: ${{ env.COVERFLEX_GITHUB_ACTIONS_TAILSCALE_TAILNET }}
+      #     action: apply
+
+      # - name: Test ACL
+      #   if: github.event_name == 'pull_request'
+      #   id: test-acl
+      #   uses: tailscale/gitops-acl-action@v1
+      #   with:
+      #     api-key: ${{ env.TAILSCALE_API_KEY }}
+      #     tailnet: ${{ env.COVERFLEX_GITHUB_ACTIONS_TAILSCALE_TAILNET }}
+      #     action: test
