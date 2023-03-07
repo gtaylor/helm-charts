@@ -38,7 +38,7 @@ jobs:
       
       - name: Test eks
         run: |
-          aws eks update-kubeconfig --name coverflex-staging-20221130 --role-arn=arn:aws:iam::883152518512:role/tailscale-subnet-router-GithubActions
+          aws eks update-kubeconfig --name coverflex-staging-20221130
           helm list
 
       # - name: Get tailscale API key
