@@ -35,6 +35,11 @@ jobs:
           secret-ids: |
             arn:aws:secretsmanager:eu-west-3:883152518512:secret:coverflex_tailscale_githubactions-9VIndJ
           parse-json-secrets: true
+      
+      - name: Test eks
+        run: |
+          aws eks update-kubeconfig --name coverflex-staging-20221130 --role-arn=arn:aws:iam::883152518512:role/tailscale-subnet-router-GithubActions
+          helm list
 
       # - name: Get tailscale API key
       #   run: |
