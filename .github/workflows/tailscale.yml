@@ -39,7 +39,7 @@ jobs:
       - name: deploy tailscale
         run: |
           aws eks update-kubeconfig --name coverflex-staging-20221130
-          helm upgrade --install tailscale-subnet-router ./charts/tailscale-subnet-router -f values.yml -n tailscale --wait --timeout 5m
+          helm upgrade --install tailscale-subnet-router ./charts/tailscale-subnet-router -f values.yaml -n tailscale --wait --timeout 5m
 
       # - name: Get tailscale API key
       #   run: |
