@@ -1,10 +1,16 @@
 name: Tailscale subnet router
 
-on: push
-#   push:
-#     branches: [ "main" ]
-#   pull_request:
-#     branches: [ "main" ]
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  AWS_ASSUME_ROLE: arn:aws:iam::883152518512:role/tailscale-subnet-router-GithubActions
+  AWS_EKS_CLUSTER: coverflex-staging-20221130
+  AWS_REGION: eu-west-3
+
 
 jobs:
   test-deploy:
@@ -24,44 +30,14 @@ jobs:
         run: helm lint charts/tailscale-subnet-router
 
       - name: Configure AWS Credentials
+        if: github.event_name == 'push'
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
-          role-to-assume: arn:aws:iam::883152518512:role/tailscale-subnet-router-GithubActions
-          aws-region: eu-west-3
+          role-to-assume: "${AWS_ASSUME_ROLE}"
+          aws-region: "${AWS_REGION}"
 
-      - name: Get secrets by name and by ARN
-        uses: aws-actions/aws-secretsmanager-get-secrets@v1
-        with:
-          secret-ids: |
-            arn:aws:secretsmanager:eu-west-3:883152518512:secret:coverflex_tailscale_githubactions-9VIndJ
-          parse-json-secrets: true
-      
       - name: deploy tailscale
+        if: github.event_name == 'push'
         run: |
-          aws eks update-kubeconfig --name coverflex-staging-20221130
+          aws eks update-kubeconfig --name ${AWS_EKS_CLUSTER}
           helm upgrade --install tailscale-subnet-router ./charts/tailscale-subnet-router -f values.yaml -n tailscale --wait --timeout 5m
-
-      # - name: Get tailscale API key
-      #   run: |
-      #     TAILSCALE_API_KEY=$(curl -d "client_id=${COVERFLEX_GITHUB_ACTIONS_OAUTH_CLIENT_ID}" \
-      #       -d "client_secret=${COVERFLEX_GITHUB_ACTIONS_OAUTH_CLIENT_SECRET}" \
-      #       "https://api.tailscale.com/api/v2/oauth/token" | jq -j .access_token)
-      #     echo "TAILSCALE_API_KEY=${TAILSCALE_API_KEY}" >> $GITHUB_ENV
-
-      # - name: Deploy ACL
-      #   if: github.event_name == 'push'
-      #   id: deploy-acl
-      #   uses: tailscale/gitops-acl-action@v1
-      #   with:
-      #     api-key: ${{ env.TAILSCALE_API_KEY }}
-      #     tailnet: ${{ env.COVERFLEX_GITHUB_ACTIONS_TAILSCALE_TAILNET }}
-      #     action: apply
-
-      # - name: Test ACL
-      #   if: github.event_name == 'pull_request'
-      #   id: test-acl
-      #   uses: tailscale/gitops-acl-action@v1
-      #   with:
-      #     api-key: ${{ env.TAILSCALE_API_KEY }}
-      #     tailnet: ${{ env.COVERFLEX_GITHUB_ACTIONS_TAILSCALE_TAILNET }}
-      #     action: test
