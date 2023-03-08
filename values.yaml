@@ -26,10 +26,14 @@ tailscale:
     secretName: tailscale-subnet-router-state
   # -- Routes for the subnet router to publish
   routes:
+    - "10.0.1.208/32"
+    - "10.0.5.220/32"
+    - "10.0.6.217/32"
+    - "10.248.23.100/32"
     # Default service CIDR
-    - "10.96.0.0/12"
+    #- "10.96.0.0/12"
     # Default pod CIDR
-    - "10.244.0.0/16"
+    #- "10.244.0.0/16"
 
   # -- Additional environment values
   extraEnv: []
@@ -43,16 +47,26 @@ serviceAccount:
   # Specifies whether a service account should be created
   create: true
   # Annotations to add to the service account
-  annotations: {}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::883152518512:role/tailscale-subnet-router-ServiceAccount
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: ""
+  name: "tailscale-subnet-router"
 
 # -- Additional volumes to add to the pod
-volumes: []
+volumes:
+  - name: secrets-store-inline
+    csi:
+      driver: secrets-store.csi.k8s.io
+      readOnly: true
+      volumeAttributes:
+        secretProviderClass: "tailscale-secrets-provider"
 
 # -- Additional volumes to add to mount to the primary container
-volumeMounts: []
+volumeMounts:
+  - name: secrets-store-inline
+    mountPath: "/mnt/secrets-store"
+    readOnly: true
 
 # -- Additional annotations for the pods
 podAnnotations: {}
