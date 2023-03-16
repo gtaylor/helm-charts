@@ -33,8 +33,8 @@ jobs:
         if: github.event_name == 'push'
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
-          role-to-assume: ${AWS_ASSUME_ROLE}
-          aws-region: eu-west-3
+          role-to-assume: "${env.AWS_ASSUME_ROLE}"
+          aws-region: "${env.AWS_REGION}"
 
       - name: deploy tailscale
         if: github.event_name == 'push'
