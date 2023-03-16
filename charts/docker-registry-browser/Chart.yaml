@@ -1,6 +1,0 @@
-apiVersion: v2
-name: docker-registry-browser
-description: Web Interface for the Docker Registry HTTP API V2 written in Ruby on Rails.
-type: application
-version: 0.4.4
-appVersion: "1.4.0"

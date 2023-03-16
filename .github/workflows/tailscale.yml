@@ -1,0 +1,43 @@
+name: Tailscale subnet router
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  AWS_ASSUME_ROLE: arn:aws:iam::883152518512:role/tailscale-subnet-router-GithubActions
+  AWS_EKS_CLUSTER: coverflex-staging-20221130
+  AWS_REGION: eu-west-3
+
+
+jobs:
+  test-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup helm tool
+        uses: azure/setup-helm@v3
+
+      - name: Run Helm lint against chart
+        run: helm lint charts/tailscale-subnet-router
+
+      - name: Configure AWS Credentials
+        if: github.event_name == 'push'
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: "${AWS_ASSUME_ROLE}"
+          aws-region: "${AWS_REGION}"
+
+      - name: deploy tailscale
+        if: github.event_name == 'push'
+        run: |
+          aws eks update-kubeconfig --name ${AWS_EKS_CLUSTER}
+          helm upgrade --install tailscale-subnet-router ./charts/tailscale-subnet-router -f values.yaml -n tailscale --wait --timeout 5m
